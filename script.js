@@ -22,9 +22,9 @@ function powerOf(a, b) {
     return a**b;
 }
 
-let a;
+let a = "";
 let operat;
-let b;
+let b = "";
 
 function operator(a, operat, b) {
     if (operat === "+") {return add(a,b)};
@@ -40,22 +40,60 @@ let firstOrSecond;
 const display = document.querySelector(".display");
 display.textContent = "0";
 
-
-const clearButton = document.querySelector(".clear");
-clearButton.addEventListener("click", () => {
-    display.texContent = "0";
-    console.log(display.textContent)
-});
-
 const numbers = document.querySelectorAll(".number");
 numbers.forEach((number) => {
     number.addEventListener("click", () => {
-        if (display.textContent === "0") {
-            display.textContent = number.textContent;
-        } else {
+        if (firstOrSecond != "1") {
+            display.textContent = (display.textContent === "0") ? "" : display.textContent;
             display.textContent += number.textContent;
+            a += number.textContent;
+        } else {
+            display.textContent = (display.textContent === "0") ? "" : display.textContent;
+            display.textContent += number.textContent;
+            b += number.textContent
         }
     })
-});
+})
+
+const clear = document.querySelector(".clear");
+clear.addEventListener("click", () => {
+    display.textContent = "0";
+    firstOrSecond = "0";
+    a = "";
+    b = "";
+})
+
+
+const operators = document.querySelectorAll(".operator");
+operators.forEach((oper) => {
+    oper.addEventListener("click", () => {
+        if (firstOrSecond === "1") {
+            a = Number(a);
+            b = Number(b);
+            sol = operator(a, operat, b);
+            a = sol;
+            b = "";
+            display.textContent = sol;
+        }
+        firstOrSecond = (display.textContent != "0") ? "1" : "0";
+        if (display.textContent != "0" || oper.textContent === "-"){
+            a = (display.textContent === "0" && oper.textContent === "-") ? oper.textContent : a;
+            display.textContent = (display.textContent === "0") ? "" : display.textContent;
+            display.textContent += oper.textContent;
+            operat = oper.textContent;
+        }
+    })
+})
+
+const equals = document.querySelector(".equals");
+equals.addEventListener("click", () => {
+    a = Number(a);
+    b = Number(b);
+    sol = operator(a, operat, b);
+    a = sol;
+    b = "";
+    display.textContent = sol;
+})
+
 
 

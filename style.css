@@ -48,19 +48,16 @@ body {
 
 }
 
-.clear {
-    font-size: 22px;
-    width: 33%;
-    border-radius: 10px;
-    background-color: darkcyan;
-}
-
-.number {
+.number, .equals, .clear {
     width: 33%;
     font-size: 40px;
     border-radius: 10px;
     background-color: darkcyan;
 }
+
+.clear{
+    font-size: 22px;
+} 
 
 .theOperators {
     display: flex;
