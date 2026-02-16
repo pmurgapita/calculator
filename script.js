@@ -1,3 +1,6 @@
+
+// Functions for the math:
+
 function add(a, b) {
     return a + b;
 }
@@ -22,6 +25,7 @@ function powerOf(a, b) {
     return a**b;
 }
 
+
 let a = "";
 let operat;
 let b = "";
@@ -35,25 +39,36 @@ function operator(a, operat, b) {
     if (operat === "**") {return powerOf(a, b)};
 }
 
+// Variables:
+
 let firstOrSecond;
+let sol;
 
 const display = document.querySelector(".display");
 display.textContent = "0";
 
+// When pressing a number:
+
 const numbers = document.querySelectorAll(".number");
 numbers.forEach((number) => {
     number.addEventListener("click", () => {
+        console.log(sol)
         if (firstOrSecond != "1") {
             display.textContent = (display.textContent === "0") ? "" : display.textContent;
+            if (Number(display.textContent) === sol) { 
+                display.textContent = "";
+                a = ""; 
+            }
             display.textContent += number.textContent;
             a += number.textContent;
         } else {
-            display.textContent = (display.textContent === "0") ? "" : display.textContent;
             display.textContent += number.textContent;
             b += number.textContent
         }
     })
 })
+
+// When pressing clear:
 
 const clear = document.querySelector(".clear");
 clear.addEventListener("click", () => {
@@ -61,8 +76,10 @@ clear.addEventListener("click", () => {
     firstOrSecond = "0";
     a = "";
     b = "";
+    sol = "";
 })
 
+// When pressing an operator:
 
 const operators = document.querySelectorAll(".operator");
 operators.forEach((oper) => {
@@ -85,6 +102,8 @@ operators.forEach((oper) => {
     })
 })
 
+// When pressing equals
+
 const equals = document.querySelector(".equals");
 equals.addEventListener("click", () => {
     a = Number(a);
@@ -93,6 +112,7 @@ equals.addEventListener("click", () => {
     a = sol;
     b = "";
     display.textContent = sol;
+    firstOrSecond = "0";
 })
 
 
