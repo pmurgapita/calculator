@@ -42,13 +42,14 @@ body {
 }
 
 .theNumbers {
+    width: 66%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 
 }
 
-.number, .equals, .clear {
+.number, .equals, .number.dot{
     width: 33%;
     font-size: 40px;
     border-radius: 10px;
@@ -56,10 +57,14 @@ body {
 }
 
 .clear{
+    width:50%;
     font-size: 22px;
+    border-radius: 10px;
+    background-color: rgb(139, 97, 0);
 } 
 
 .theOperators {
+    width: 33%;
     display: flex;
     flex-wrap: wrap;
 }
@@ -71,6 +76,13 @@ body {
     background-color: rgb(139, 97, 0);
 }
 
+
+.erase {
+    width:50%;
+    font-size: 22px;
+    border-radius: 10px;
+    background-color: rgb(139, 97, 0);
+}
 .operator.sqrt {
     font-size: 22px;
 }

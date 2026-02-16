@@ -50,10 +50,11 @@ display.textContent = "0";
 // When pressing a number:
 
 const numbers = document.querySelectorAll(".number");
+const dot = document.querySelector(".number.dot");
 numbers.forEach((number) => {
     number.addEventListener("click", () => {
-        console.log(sol)
         if (firstOrSecond != "1") {
+            dot.disabled = (a.includes(".")) ? true : false
             display.textContent = (display.textContent === "0") ? "" : display.textContent;
             if (Number(display.textContent) === sol) { 
                 display.textContent = "";
@@ -62,6 +63,7 @@ numbers.forEach((number) => {
             display.textContent += number.textContent;
             a += number.textContent;
         } else {
+            dot.disabled = (b.includes(".")) ? true : false
             display.textContent += number.textContent;
             b += number.textContent
         }
@@ -84,6 +86,7 @@ clear.addEventListener("click", () => {
 const operators = document.querySelectorAll(".operator");
 operators.forEach((oper) => {
     oper.addEventListener("click", () => {
+        dot.disabled = false;
         if (firstOrSecond === "1") {
             a = Number(a);
             b = Number(b);
@@ -108,12 +111,14 @@ const equals = document.querySelector(".equals");
 equals.addEventListener("click", () => {
     a = Number(a);
     b = Number(b);
-    sol = operator(a, operat, b);
+    x = operator(a, operat, b);
+    sol = (x.toString().split("").length > 10) ? x.toFixed(6) : x;
     a = sol;
     b = "";
     display.textContent = sol;
     firstOrSecond = "0";
 })
+
 
 
 
