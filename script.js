@@ -29,6 +29,7 @@ function powerOf(a, b) {
 let a = "";
 let operat;
 let b = "";
+const values = "1234567890+-*/.="
 
 function operator(a, operat, b) {
     if (operat === "+") {return add(a,b)};
@@ -129,34 +130,49 @@ equals.addEventListener("click", () => {
 
 const backspace = document.querySelector(".erase");
 backspace.addEventListener("click", () => {
-    let lastDeleted = display.textContent.split("");
-    console.log(lastDeleted)
-    lastDeleted.splice(lastDeleted.length-1,1);
-    newNumber = lastDeleted.join("")
-    display.textContent = newNumber;
-    if (turn === "turnA") {
-        arrayA = a.split("");
-        arrayA.splice(a.length-1,1);
-        a = arrayA.join("");
-    } else if (turn === "turnB") {
-        arrayB = b.split("");
-        arrayB.splice(b.length-1,1);
-        b = arrayB.join("");
-        if (b === "") {
-            turn = "turnOp"
+    if (display.textContent === "" || display.textContent === "0") {
+        display.textContent = "0"
+    } else {
+        let lastDeleted = display.textContent.split("");
+        lastDeleted.splice(lastDeleted.length-1,1);
+        newNumber = lastDeleted.join("")
+        display.textContent = newNumber;
+        if (turn === "turnA") {
+            arrayA = a.split("");
+            arrayA.splice(a.length-1,1);
+            a = arrayA.join("");
+        } else if (turn === "turnB") {
+            arrayB = b.split("");
+            arrayB.splice(b.length-1,1);
+            b = arrayB.join("");
+            if (b === "") {
+                turn = "turnOp"
+            }
+        } else if (turn === "turnOp") {
+            operat = "";
+            firstOrSecond = "0";
+            if (operat === "") {
+                turn = "turnA"
+            }
+        } else if (turn === "turnSol") {
+            display.textContent = "0";
+            firstOrSecond = "0";
+            a = "";
+            b = "";
+            sol = "";
         }
-    } else if (turn === "turnOp") {
-        operat = "";
-        firstOrSecond = "0";
-        if (operat === "") {
-            turn = "turnA"
-        }
-    } else if (turn === "turnSol") {
-        display.textContent = "0";
-        firstOrSecond = "0";
-        a = "";
-        b = "";
-        sol = "";
+    }
+})
+
+//Keyboard support
+
+document.addEventListener("keydown", (event) => {
+    if (values.includes(event.key)) {
+        document.getElementById(`${event.key}`).click();
+    } else if (event.key === "Backspace"){
+        document.getElementById(`${event.key}`).click();
+    } else if (event.key === "Enter") {
+        document.getElementById("=").click();
     }
 })
 
