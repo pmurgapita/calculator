@@ -43,6 +43,7 @@ function operator(a, operat, b) {
 
 let firstOrSecond;
 let sol;
+let turn;
 
 const display = document.querySelector(".display");
 display.textContent = "0";
@@ -54,16 +55,19 @@ const dot = document.querySelector(".number.dot");
 numbers.forEach((number) => {
     number.addEventListener("click", () => {
         if (firstOrSecond != "1") {
-            dot.disabled = (a.includes(".")) ? true : false
+            turn = "turnA";
+            dot.disabled = (a.toString().includes(".")) ? true : false
             display.textContent = (display.textContent === "0") ? "" : display.textContent;
-            if (Number(display.textContent) === sol) { 
+            if (Number(display.textContent) === sol) {
+                a = "";
+                sol = "";
                 display.textContent = "";
-                a = ""; 
             }
             display.textContent += number.textContent;
             a += number.textContent;
         } else {
-            dot.disabled = (b.includes(".")) ? true : false
+            turn = "turnB";
+            dot.disabled = (b.toString().includes(".")) ? true : false
             display.textContent += number.textContent;
             b += number.textContent
         }
@@ -86,6 +90,7 @@ clear.addEventListener("click", () => {
 const operators = document.querySelectorAll(".operator");
 operators.forEach((oper) => {
     oper.addEventListener("click", () => {
+        turn = "turnOp";
         dot.disabled = false;
         if (firstOrSecond === "1") {
             a = Number(a);
@@ -117,8 +122,42 @@ equals.addEventListener("click", () => {
     b = "";
     display.textContent = sol;
     firstOrSecond = "0";
+    turn = "turnSol";
 })
 
+// When pressing backspace
 
+const backspace = document.querySelector(".erase");
+backspace.addEventListener("click", () => {
+    let lastDeleted = display.textContent.split("");
+    console.log(lastDeleted)
+    lastDeleted.splice(lastDeleted.length-1,1);
+    newNumber = lastDeleted.join("")
+    display.textContent = newNumber;
+    if (turn === "turnA") {
+        arrayA = a.split("");
+        arrayA.splice(a.length-1,1);
+        a = arrayA.join("");
+    } else if (turn === "turnB") {
+        arrayB = b.split("");
+        arrayB.splice(b.length-1,1);
+        b = arrayB.join("");
+        if (b === "") {
+            turn = "turnOp"
+        }
+    } else if (turn === "turnOp") {
+        operat = "";
+        firstOrSecond = "0";
+        if (operat === "") {
+            turn = "turnA"
+        }
+    } else if (turn === "turnSol") {
+        display.textContent = "0";
+        firstOrSecond = "0";
+        a = "";
+        b = "";
+        sol = "";
+    }
+})
 
 
